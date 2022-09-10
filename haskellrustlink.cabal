@@ -1,0 +1,14 @@
+cabal-version:      2.4
+name:               haskellrustlink
+version:            0.1.0.0
+synopsis:           A small program to iterate on linking Haskell with Rust statically.
+license:            Apache-2.0
+author:             Jessica Black
+maintainer:         me@jessica.black
+extra-source-files: CHANGELOG.md
+
+executable haskellrustlink
+    main-is:          Main.hs
+    build-depends:    base ^>=4.15.1.0
+    hs-source-dirs:   app
+    default-language: Haskell2010
