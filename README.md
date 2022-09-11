@@ -13,6 +13,7 @@ This pretty much just works, with a couple downsides:
 
 - Whatever file actually includes the FFI library complains because "loading static libraries is not supported in this configuration".
   I think this is purely a language server issue, as the build itself works.
+  This is being worked around by telling `cargo` to build both a dynamic and static library- but this may not be ideal.
 - The file must be linked from an abolute path, so the FFI target needs to be installed in a global place.
 
 **Output:**
@@ -64,4 +65,4 @@ this uses the "[convenience libraries](https://github.com/haskell/cabal/pull/302
 
 Things I'd like to do, but may not be easily doable:
 
-- [ ] Somehow work around the language server error.
+- [ ] Somehow work around the language server error without building a `cdylib`.
