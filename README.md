@@ -11,10 +11,13 @@ Resources used:
 
 This pretty much just works, with a couple downsides:
 
-- Whatever file actually includes the FFI library complains because "loading static libraries is not supported in this configuration".
-  I think this is purely a language server issue, as the build itself works.
-  This is being worked around by telling `cargo` to build both a dynamic and static library- but this may not be ideal.
-- The file must be linked from an abolute path, so the FFI target needs to be installed in a global place.
+1. Whatever file actually includes the FFI library complains because "loading static libraries is not supported in this configuration".
+
+I think this is purely a language server issue, as the build itself works.
+This is being worked around by telling `cargo` to build both a dynamic and static library- but this may not be ideal;
+in particular I'm unsure how to force it to statically link if both are available.
+
+2. The file must be linked from an abolute path, so the FFI target needs to be installed in a global place.
 
 **Output:**
 ```shell
@@ -60,6 +63,7 @@ this uses the "[convenience libraries](https://github.com/haskell/cabal/pull/302
 
 # TODO
 
+- [ ] Force the Haskell binary to be statically linked.
 - [ ] Make the build script put the Rust binary somewhere global but system independent for building.
 - [ ] Make a test matrix including Windows so I can validate how that works.
 
