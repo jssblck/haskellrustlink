@@ -1,11 +1,10 @@
-module Main where
+module Main (main) where
 
-import Ext
-import Foreign.C.String (newCString)
+import Lib qualified
 
 main :: IO ()
 main = do
-  helloWorld
-  printString =<< newCString "Hello from Haskell via Rust!\0"
-  printString =<< newCString "3 doubled is: \0"
-  print (doubleInput 3)
+  putStrLn "Hello, Haskell"
+  Lib.sayHello
+  Lib.printStdout "Hello through Rust"
+  Lib.printStdout . ("3 doubled is: " <>) . show $ Lib.doubleInput 3

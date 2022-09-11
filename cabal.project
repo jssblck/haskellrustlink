@@ -1,0 +1,8 @@
+packages: .
+tests: True
+optimization: False
+
+package *
+  extra-include-dirs: /opt/homebrew/include
+  extra-lib-dirs: /opt/homebrew/lib
+  ghc-options: -I/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include/ffi

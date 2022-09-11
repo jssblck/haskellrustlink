@@ -1,4 +1,4 @@
-cabal-version:      2.4
+cabal-version:      3.0
 name:               haskellrustlink
 version:            0.1.0.0
 synopsis:           A small program to iterate on linking Haskell with Rust statically.
@@ -8,21 +8,87 @@ maintainer:         me@jessica.black
 extra-source-files: CHANGELOG.md
 build-type:         Simple
 
-executable haskellrustlink
-  main-is:            Main.hs
-  build-depends:      base ^>=4.15.1.0
-  hs-source-dirs:     app
+common lang
+  build-depends:      base ^>=4.15
   default-language:   Haskell2010
-  other-modules:      Ext
-  extra-libraries:    rusthello, pthread
+  default-extensions:
+    BangPatterns
+    BinaryLiterals
+    ConstrainedClassMethods
+    ConstraintKinds
+    DeriveDataTypeable
+    DeriveFoldable
+    DeriveFunctor
+    DeriveGeneric
+    DeriveLift
+    DeriveTraversable
+    EmptyCase
+    EmptyDataDeriving
+    ExistentialQuantification
+    ExplicitForAll
+    FlexibleContexts
+    FlexibleInstances
+    GADTSyntax
+    GeneralizedNewtypeDeriving
+    HexFloatLiterals
+    ImportQualifiedPost
+    InstanceSigs
+    KindSignatures
+    LambdaCase
+    MultiParamTypeClasses
+    NamedFieldPuns
+    NamedWildCards
+    NumericUnderscores
+    OverloadedStrings
+    PolyKinds
+    PostfixOperators
+    RankNTypes
+    ScopedTypeVariables
+    StandaloneDeriving
+    StandaloneKindSignatures
+    StrictData
+    TupleSections
+    TypeApplications
+    TypeOperators
+    TypeSynonymInstances
+
+  ghc-options:
+    -Wall -Wincomplete-uni-patterns -Wcompat
+    -Wincomplete-record-updates -Wmissing-home-modules
+    -Wmissing-export-lists -Wredundant-constraints
+
+  extra-libraries:    rusthello
   extra-lib-dirs:     /Users/jessica/projects/scratch/haskellrustlink/target/release
-  ghc-options:        -I/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include/ffi -I/opt/homebrew/include -L/opt/homebrew/lib
+
+common deps
+  build-depends:
+    extlib
+
+  if !os(windows)
+    build-depends: unix ^>=2.7.2.2
 
 library
+  import:          lang
+  import:          deps
+
+  -- cabal-fmt: expand src
+  exposed-modules:
+    Lib
+  
+  hs-source-dirs:  src
+
+library extlib
+  import:          lang
+  exposed-modules:
+    Extlib
+    Extlib.Internal
+  
+  hs-source-dirs:  extlib
+
+executable demo
+  import:             lang
+  main-is:            Main.hs
+  build-depends:      haskellrustlink
   hs-source-dirs:     app
-  exposed-modules:    Ext
-  build-depends:      base ^>=4.15.1.0
   default-language:   Haskell2010
-  extra-libraries:    rusthello, pthread
-  extra-lib-dirs:     /Users/jessica/projects/scratch/haskellrustlink/target/release
-  ghc-options:        -I/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/include/ffi -I/opt/homebrew/include -L/opt/homebrew/lib
+  ghc-options:        -threaded
