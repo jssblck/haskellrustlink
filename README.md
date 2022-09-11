@@ -1,8 +1,8 @@
 
 # Linking Rust libraries statically in Haskell
 
-I tried following along with https://blog.mgattozzi.dev/haskell-rust/ in another project, but it had strange linking errors.
-Here's a smaller repo to hopefully more quickly iterate on what might need to be done.
+This is a small repo in which I'm trying to set up a realistic Haskell project and link FFI binaries
+(in this case Rust, but it could be anything) into it with minimal pain.
 
 Resources used:
 - https://blog.mgattozzi.dev/haskell-rust/
